@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/logo.jpg" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/7e915f6b7d.js" crossorigin="anonymous"></script>
+    <title>Better Homes | Find Your Dream Property</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #f59e0b;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #94a3b8;
+            --gray-light: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        .main-header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand{
+             color: rgb(179, 36, 36);
+             display: flex;
+             align-items: center;
+        }
+        .brand img {
+             width: 70px;
+             height: 70px;
+             background-color:  rgb(179, 36, 36);
+             border-radius: 20px;
+
+         }
+        .brand img:hover{
+             background-color:  rgb(242, 7, 7);
+             height: 71px;
+             width: 71px;
+             transition: 0.5s;
+             border-radius: 15px;
+         }
+        .brand{
+             color: rgb(179, 36, 36);
+             display: flex;
+             align-items: center;
+        }
+
+        .main-header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand img {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius);
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 1.5rem;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .search-container button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-container button:hover {
+            background: var(--primary-dark);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+        }
+
+        .nav-link:hover {
+            background: var(--gray-light);
+            color: var(--primary);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-icon {
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            background: white;
+            border-bottom: 1px solid var(--gray-light);
+            padding: 1rem 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-list {
+            display: flex;
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 70px;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+            border-radius: var(--radius);
+        }
+
+        .category-item:hover {
+            background: var(--gray-light);
+        }
+
+        .category-item.active {
+            color: var(--primary);
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-name {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .tax-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        /* Property Grid */
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .property-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .property-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .card-content {
+            padding: 1.25rem;
+        }
+
+        .property-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .property-details {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        .property-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .property-description {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--dark);
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .agent {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .agent-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .agent-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .contact-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Footer */
+        .main-footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 0.25rem;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-header nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-container {
+                margin: 0;
+                order: 3;
+                max-width: 100%;
+            }
+
+            .nav-actions {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .property-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .property-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <nav>
+                <div class="brand">
+                    <img src="../logo.png">
+                    <h1>Better Homes</h1>
+                </div>
+            
+
+                <div class="search-container">
+                    <input type="text" placeholder="Search for properties, locations...">
+                    <button>
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div class="nav-actions">
+                    <a href="#" class="nav-link">Buy</a>
+                    <a href="#" class="nav-link">Rent</a>
+                    <a href="#" class="nav-link">Sell</a>
+                    <div class="user-actions">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-globe"></i>
+                        </a>
+                        <div class="user-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="category-nav">
+        <div class="container">
+            <div class="category-list">
+                <div class="category-item active">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <span class="category-name">Houses</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <span class="category-name">Apartments</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <span class="category-name">Lands</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <span class="category-name">Commercial</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-swimming-pool"></i>
+                    </div>
+                    <span class="category-name">Luxury</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <span class="category-name">Deals</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="filter-bar">
+            <div class="filter-options">
+                <div class="filter-btn">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Filters</span>
+                </div>
+                <div class="filter-btn">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location</span>
+                </div>
+                <div class="filter-btn">
+                    <i class="fas fa-dollar-sign"></i>
+                    <span>Price</span>
+                </div>
+                <div class="filter-btn">
+                    <i class="fas fa-bed"></i>
+                    <span>Beds</span>
+                </div>
+            </div>
+            <div class="tax-info">
+                <i class="fas fa-check-circle"></i>
+                <span>Prices include all fees</span>
+            </div>
+        </section>
+
+        <section class="property-grid">
+            <!-- Property Card 1 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGhvdXNlfGVufDB8fDB8fHww" alt="Modern house in Malindi">
+                    <div class="card-badge">Featured</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 5,500,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Malindi, Kenya</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>3 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>2 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>1,200 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Beautiful modern house located 7 km away from Malindi town with stunning ocean views.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">JD</div>
+                            <span class="agent-name">John Doe</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 2 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="Contemporary house in Nairobi">
+                    <div class="card-badge">New</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 7,500,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Nairobi, Kenya</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>4 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>3 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>1,800 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Spacious contemporary house located 5 km away from Nairobi CBD with modern amenities.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">AS</div>
+                            <span class="agent-name">Alice Smith</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 3 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGhvdXNlfGVufDB8fDB8fHww" alt="Luxury villa in Nakuru">
+                    <div class="card-badge">Premium</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 10,000,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Nakuru, Kenya</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>5 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>4 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>2,500 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Luxury villa with panoramic views, located 4.5 km away from Nakuru town center.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">RJ</div>
+                            <span class="agent-name">Robert Johnson</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 4 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="Modern apartment in Dodoma">
+                    <div class="card-badge">Popular</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 7,500,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dodoma, Tanzania</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>3 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>2 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>1,400 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Modern apartment located just 2 km away from Dodoma town with convenient access to amenities.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">MW</div>
+                            <span class="agent-name">Mary Williams</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 5 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8aG91c2V8ZW58MHx8MHx8fDA%3D" alt="Beach house in Mombasa">
+                    <div class="card-badge">Luxury</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 12,000,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Mombasa, Kenya</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>4 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>3 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>2,200 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Stunning beach house located 10 km away from Mombasa town with direct beach access.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">TB</div>
+                            <span class="agent-name">Thomas Brown</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Property Card 6 -->
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGhvdXNlfGVufDB8fDB8fHww" alt="Suburban house in Nairobi">
+                    <div class="card-badge">Featured</div>
+                </div>
+                <div class="card-content">
+                    <div class="property-price">KSH 11,500,000</div>
+                    <div class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Nairobi, Kenya</span>
+                    </div>
+                    <div class="property-details">
+                        <div class="property-detail">
+                            <i class="fas fa-bed"></i>
+                            <span>4 Beds</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-bath"></i>
+                            <span>3 Baths</span>
+                        </div>
+                        <div class="property-detail">
+                            <i class="fas fa-ruler-combined"></i>
+                            <span>2,000 sqft</span>
+                        </div>
+                    </div>
+                    <p class="property-description">Beautiful suburban house located 6 km away from Nairobi town in a quiet neighborhood.</p>
+                    <div class="contact-info">
+                        <div class="agent">
+                            <div class="agent-avatar">ED</div>
+                            <span class="agent-name">Emma Davis</span>
+                        </div>
+                        <button class="contact-btn">Contact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Better Homes</h3>
+                    <p>Find your dream property with our extensive listings and professional agents. We're committed to helping you find the perfect home.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Buy Property</a></li>
+                        <li><a href="#">Rent Property</a></li>
+                        <li><a href="#">Sell Property</a></li>
+                        <li><a href="#">Property Valuation</a></li>
+                        <li><a href="#">Find Agents</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Properties</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Houses</a></li>
+                        <li><a href="#">Apartments</a></li>
+                        <li><a href="#">Lands</a></li>
+                        <li><a href="#">Commercial</a></li>
+                        <li><a href="#">Luxury Homes</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Property Street, Nairobi, Kenya</li>
+                        <li><i class="fas fa-phone"></i> +254 700 123 456</li>
+                        <li><i class="fas fa-envelope"></i> info@betterhomes.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Better Homes. All rights reserved.</p>
+                <div>
+                    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple JavaScript for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Category selection
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    categoryItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Contact button functionality
+            const contactButtons = document.querySelectorAll('.contact-btn');
+            contactButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.property-card');
+                    const location = card.querySelector('.property-location span').textContent;
+                    const price = card.querySelector('.property-price').textContent;
+                    alert(`Thank you for your interest in the property in ${location} for ${price}. An agent will contact you shortly.`);
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-container input');
+            const searchButton = document.querySelector('.search-container button');
+            
+            searchButton.addEventListener('click', function() {
+                performSearch();
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    alert(`Searching for: ${query}`);
+                    // In a real application, you would filter properties here
+                }
+            }
+        });
+    </script>
+</body>
+</html>
